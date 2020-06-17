@@ -1,41 +1,73 @@
-# 1、类属性怎么定义？ 实例属性怎么定义？
-# 定义在类中，方法外的属性
-# 定义在初始化函数里的属性
-# 2、实例方法中的self代表什么？（简答）
-# 表示对象，实际调用该方法的对象
-# 3、类中__init__方法在什么时候会调用的？（简答）
-#
-# 4、封装一个学生类Student
-# -  属性：姓名，年龄，性别，英语成绩，数学成绩，语文成绩，
-# -  方法一：计算总分，
-# 方法二：计算三科平均分，
-# 方法三：打印学生的个人信息：我的名字叫XXX，年龄：xxx,性别：xxx。
-# 实例化1个学生,并打印学生个人信息，计算总分，平均分。
+# 1， 定义一个类 Dog, 包含 2 个属性：名字和年龄。
+# 定义一个方法 eat 吃东西。
+# 定义一个类 TeddyDog, 继承 Dog 类， Teddy 在吃东西的时候还会望着你，  定义方法 watch_you.
+# 定义一个类 BabyTeddyDog, 继承 TeddyDog,  BabyTeddy 吃东西不仅会望着你，还会四处转悠， 定义方法 go_around
 
 
-class student:
-    def __init__(self, name, age, sex, English_scores, Math_scorse, Language_scores):
+class Dog:
+    def __init__(self, name, age):
         self.name = name
         self.age = age
-        self.sex = sex
-        self.English_scores = English_scores
-        self.Math_scores = Math_scorse
-        self.Language_scores = Language_scores
 
-    def average_score_calculation(self):
-        try:
-            avg_scores = int(self.English_scores + self.Language_scores + self.Math_scores) / 3
-        except Exception as e:
-            print('计算异常请检查')
-            raise e
-        print(f"平均分数是{avg_scores}")
-        return avg_scores
+    def eat(self):
+        print('吃东西')
 
-    def print_personal_information(self):
-        print(f"我的名字叫{self.name}，年龄{self.age},性别{self.sex}")
+
+class TeddyDog(Dog):
+    def watch_you(self):
+        self.eat()
+        print('看着你')
+
+
+class BabyTeddyDog(TeddyDog):
+    def go_around(self):
+        self.eat()
+        self.watch_you()
+        print('四处转悠')
+
+
+# 1.编写如下程序
+# 编写一个工具箱类和工具类
+# 工具类：需要有工具具的名称、功能描述、价格。
+# 工具箱类：能够添加工具、删除工具、查看工具，并且能获取工具箱中工具的总数。
+# 实例化几个工具。并在工具箱对象当中做添加/删除/查看工具操作，获取工具箱对象中有几个工具。
+# 工具比如锤子、斧头、螺丝刀等工具。
+# 提示：不需要用到继承。
+class Tool:
+    def __init__(self, name, features, price):
+        self.name = name
+        self.features = features
+        self.price = price
+
+
+class Tool_Box:
+    def __init__(self):
+        self.tool_list = []
+
+    def add_tool(self, tool):
+        self.tool_list.append(tool)
+
+    def remove_tool(self, tool):
+        self.tool_list.remove(tool)
+
+    def statistics_tool(self):
+        num = len(self.tool_list)
+        print(f'一共有{num}件工具')
 
 
 if __name__ == '__main__':
-    student_lich = student(name='lichkk', age=25, sex='男', English_scores=100, Math_scorse=90, Language_scores=80)
-    student_lich.average_score_calculation()
-    student_lich.print_personal_information()
+    TeddyDog(name=1, age=2).watch_you()
+    BabyTeddyDog(1, 2).go_around()
+    hammer = Tool('锤子','砸东西',100)
+    screwdriver = Tool('螺丝刀','拧螺丝',10)
+    scissors = Tool('剪刀','剪东西',20)
+    ToolBox = Tool_Box()
+    ToolBox.add_tool(hammer)
+    ToolBox.add_tool(screwdriver)
+    ToolBox.add_tool(scissors)
+    ToolBox.add_tool(screwdriver)
+    ToolBox.statistics_tool()
+    ToolBox.remove_tool(screwdriver)
+    ToolBox.statistics_tool()
+
+
